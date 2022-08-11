@@ -7,6 +7,7 @@ class UserRoutes {
   init() {
     this.app.post('/users', userRouteHandler.createUserRouteHandler);
     this.app.get('/users', userRouteHandler.getUsersRouteHandler);
+    this.app.get('/error', userRouteHandler.error);
   }
 }
 module.exports = UserRoutes;

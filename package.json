@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@opentelemetry/exporter-trace-otlp-grpc": "^0.31.0",
+    "app-root-path": "^3.0.0",
+    "config": "^3.3.7",
+    "find-package-json": "^1.2.0"
+  }
+}

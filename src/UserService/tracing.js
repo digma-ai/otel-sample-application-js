@@ -3,7 +3,7 @@
  const { getNodeAutoInstrumentations } = require("@opentelemetry/auto-instrumentations-node");
 // const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
 //const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http');
-const { OTLPTraceExporter } =  require('@opentelemetry/exporter-trace-otlp-proto');
+//const { OTLPTraceExporter } =  require('@opentelemetry/exporter-trace-otlp-proto');
 
 // const { BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
 const opentelemetry = require("@opentelemetry/sdk-node");
@@ -15,8 +15,27 @@ const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http');
 const { BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
 const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
 const { JaegerExporter } = require("@opentelemetry/exporter-jaeger");
+const { OTLPTraceExporter } =  require('@opentelemetry/exporter-trace-otlp-grpc');
 
+//const appRoot = require('app-root-path');
 const process = require('process');
+const os = require("os");
+const finder = require('find-package-json');
+const config = require('config');
+
+const path = require('path');
+console.log(__dirname)
+class SemanticResourceDigmaAttributes {
+  static ENVIRONMENT = "digma.environment";
+  static COMMIT_ID = "scm.commit.id";
+  static PACKAGE_PATH = "code.package.path";
+}
+Object.freeze(SemanticResourceDigmaAttributes); 
+
+//let packagePath = path.dirname(require.resolve("UserService/package.json"));
+
+//var pathToModule = require.resolve('module');
+
 
 
 // For troubleshooting, set the log level to DiagLogLevel.DEBUG
@@ -55,27 +74,52 @@ const process = require('process');
 //   };
 // };
 
+ 
+function digmaAttributes(digmaEnvironment = undefined, commitId = undefined) {
+  let attributes = {};
+  const hostname = os.hostname();
+  if(digmaEnvironment === undefined) {
+      digmaEnvironment = `${hostname}[local]`
+  }
+  attributes[SemanticResourceAttributes.HOST_NAME] = hostname;
+  attributes[SemanticResourceDigmaAttributes.ENVIRONMENT] = digmaEnvironment;
+  attributes[SemanticResourceAttributes.TELEMETRY_SDK_LANGUAGE] = 'JavaScript';
 
+  if(commitId){
+    attributes[SemanticResourceDigmaAttributes.COMMIT_ID] = commitId;
+  }
+
+  const f = finder(__dirname);
+  const pkg = f.next().value;
+  const packagePath = require('path').dirname(pkg.__path)
+  attributes[SemanticResourceAttributes.PACKAGE_PATH] = packagePath;
+
+  return attributes
+  
+}
 
 // For troubleshooting, set the log level to DiagLogLevel.DEBUG
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
+const otelEndpoint = config.get('otel.endpoint');
+// const options = {
+//   endpoint: 'http://localhost:14268/api/traces',
+// }
+//const exporter = new JaegerExporter(options);
 
-const options = {
-  endpoint: 'http://localhost:14268/api/traces',
-}
-const exporter = new JaegerExporter(options);
+const exporter = new OTLPTraceExporter({
+  // optional - url default value is http://localhost:4318/v1/traces
+  url: otelEndpoint,
 
-// const exporter = new OTLPTraceExporter({
-//   // optional - url default value is http://localhost:4318/v1/traces
-//   url: 'http://localhost:4317',
-
-//   // optional - collection of custom headers to be sent with each request, empty by default
-//  // headers: {}, 
-// });
-
+  // optional - collection of custom headers to be sent with each request, empty by default
+ // headers: {}, 
+});
+console.log(__dirname)
 const sdk = new opentelemetry.NodeSDK({
   resource:new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: "user-service" // process.env.SERVICE_NAME,
+
+    [SemanticResourceAttributes.SERVICE_NAME]: "user-service", // process.env.SERVICE_NAME,
+    ...digmaAttributes()
+
   }),
   spanProcessor:new BatchSpanProcessor(exporter),
   //traceExporter: exporter,
@@ -88,10 +132,7 @@ sdk.start()
   .then(() => console.log('Tracing initialized'))
   .catch((error) => console.log('Error initializing tracing', error));
 
-// gracefully shut down the SDK on process exit
-process.on('SIGTERM', () => {
-  sdk.shutdown()
-    .then(() => console.log('Tracing terminated'))
-    .catch((error) => console.log('Error terminating tracing', error))
-    .finally(() => process.exit(0));
-});
+
+
+
+module.exports = sdk;
