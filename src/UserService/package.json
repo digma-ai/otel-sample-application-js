@@ -12,8 +12,10 @@
   "dependencies": {
     "@opentelemetry/auto-instrumentations-node": "^0.31.0",
     "@opentelemetry/exporter-jaeger": "^1.5.0",
+    "@opentelemetry/exporter-trace-otlp-grpc": "^0.31.0",
     "@opentelemetry/exporter-trace-otlp-proto": "^0.31.0",
     "@opentelemetry/sdk-node": "^0.31.0",
+    "config": "^3.3.7",
     "express": "^4.18.1",
     "pg": "^8.7.3"
   }
