@@ -20,9 +20,7 @@ const exceptionHandler = (response, span, exc, returnMessage = "internal server 
 class UserRouteHandler {
   async createUserRouteHandler(request, response) {
     console.log(request.body);
-    const spanName = 'create user'
-    // const span = globalTracer.startSpan("startSpan", undefined, undefined);
-    // span.end();
+    const spanName = 'create user' // discover spanName from variable
     return trace.startActiveSpan(spanName, async (span) => {
       try {
         const { id, name } = request.body;
@@ -55,7 +53,7 @@ class UserRouteHandler {
 
   async getUsersRouteHandler(request, response) {
 
-    const users = await trace.startActiveSpan('get users', async span => {
+    const users = await globalTracer.startActiveSpan('get users', async span => { //discover globalTracer defined in a different file
       try {
         return await db.getUsers()
       } catch (exc) {
