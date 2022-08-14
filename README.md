@@ -16,17 +16,3 @@ export PGPASSWORD='postgres'; psql -v ON_ERROR_STOP=1 --username "postgres" --db
 EOSQL
 
 ```
-
-```
-npm i  --save pg
-npm i --save @opentelemetry/auto-instrumentations-node
-npm i --save @opentelemetry/exporter-trace-otlp-proto
-npm i --save @opentelemetry/sdk-node
-npm i --save @opentelemetry/exporter-jaeger
-npm i --save express
-npm i --save config
-
-npm i --save find-package-json
-npm i --save @opentelemetry/exporter-trace-otlp-grpc
-
-```
