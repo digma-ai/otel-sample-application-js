@@ -36,12 +36,11 @@ const exporter = new OTLPTraceExporter({
 });
 console.log(__dirname)
 const sdk = new opentelemetry.NodeSDK({
-  resource:new Resource({
-
+  resource: new Resource({
     [SemanticResourceAttributes.SERVICE_NAME]: "user-service", // process.env.SERVICE_NAME,
     ...digmaAttributes({ rootPath: __dirname })
   }),
-  spanProcessor:new BatchSpanProcessor(exporter),
+  spanProcessor: new BatchSpanProcessor(exporter),
   instrumentations: [getNodeAutoInstrumentations()]//new HttpInstrumentation()
 });
 
@@ -51,7 +50,7 @@ sdk.start()
   .then(() => console.log('Tracing initialized'))
   .catch((error) => console.log('Error initializing tracing', error));
 
-
+  
 
 
 module.exports = sdk;
