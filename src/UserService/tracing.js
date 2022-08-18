@@ -28,7 +28,7 @@ const otelEndpoint = config.get('otel.endpoint');
 //const exporter = new JaegerExporter(options);
 
 const exporter = new OTLPTraceExporter({
-  // optional - url default value is http://localhost:4318/v1/traces
+  // optional - url defa ult value is http://localhost:4318/v1/traces
   url: otelEndpoint,
 
   // optional - collection of custom headers to be sent with each request, empty by default
@@ -38,7 +38,7 @@ console.log(__dirname)
 const sdk = new opentelemetry.NodeSDK({
   resource:new Resource({
 
-    [SemanticResourceAttributes.SERVICE_NAME]: "user-service", // process.env.SERVICE_NAME,
+    [SemanticResourceAttributes.SERVICE_NAME]: "userservice", // process.env.SERVICE_NAME,
     ...digmaAttributes()
 
   }),

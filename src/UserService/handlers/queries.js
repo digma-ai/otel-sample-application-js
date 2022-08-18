@@ -5,8 +5,8 @@ const pool = new Pool({
   database: 'users',
   password: 'postgres',
   port: 5432,
-})
-
+})   
+  
 const originalPoolQuery = Pool.prototype.query;
 Pool.prototype.myquery = async function query(...args) {
     try {
@@ -15,7 +15,7 @@ Pool.prototype.myquery = async function query(...args) {
         // All magic is here. new Error will generate new stack, but message will copyid from e
         throw new Error(e)
     }
-}
+} 
 
 const getUsers = async () => {
   var result = await pool.query('SELECT * FROM users ORDER BY id ASC');

@@ -7,16 +7,16 @@ console.log(__dirname)
 
 const trace = opentelemetry.trace.getTracer(
   instrumentationName,
-  version);
+  version); 
 
 const exceptionHandler = (response, span, exc, returnMessage = "internal server error") => {
   span.recordException(exc);
   span.setStatus({ code: opentelemetry.SpanStatusCode.ERROR, message: exc.message });
-  response.status(500).json({
+  response.status(500).json({ 
     error: true,
     message: returnMessage,
   });
-}
+} 
 class UserRouteHandler {
   async createUserRouteHandler(request, response) {
     console.log(request.body);
@@ -30,7 +30,7 @@ class UserRouteHandler {
             error: true,
             message: "UserName is empty",
           });
-          return;
+          return; 
         };
         var addedId = await db.createUser(id, name);
         response.status(200).json({
