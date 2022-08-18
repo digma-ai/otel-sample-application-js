@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+
 class AppConfig {
     constructor(app) {
         this.app = app;

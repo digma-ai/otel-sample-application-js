@@ -16,7 +16,7 @@ const { BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
 const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
 //const { JaegerExporter } = require("@opentelemetry/exporter-jaeger");
 const { OTLPTraceExporter } =  require('@opentelemetry/exporter-trace-otlp-grpc');
-const { digmaAttributes } = require('../../../otel-js-instrumentation');
+const { digmaAttributes } = require('@digma/otel-js-instrumentation');
 const config = require('config');
 
 // For troubleshooting, set the log level to DiagLogLevel.DEBUG
@@ -36,13 +36,11 @@ const exporter = new OTLPTraceExporter({
 });
 console.log(__dirname)
 const sdk = new opentelemetry.NodeSDK({
-  resource:new Resource({
-
-    [SemanticResourceAttributes.SERVICE_NAME]: "userservice", // process.env.SERVICE_NAME,
-    ...digmaAttributes()
-
+  resource: new Resource({
+    [SemanticResourceAttributes.SERVICE_NAME]: "user-service", // process.env.SERVICE_NAME,
+    ...digmaAttributes({ rootPath: __dirname })
   }),
-  spanProcessor:new BatchSpanProcessor(exporter),
+  spanProcessor: new BatchSpanProcessor(exporter),
   instrumentations: [getNodeAutoInstrumentations()]//new HttpInstrumentation()
 });
 
@@ -52,7 +50,7 @@ sdk.start()
   .then(() => console.log('Tracing initialized'))
   .catch((error) => console.log('Error initializing tracing', error));
 
-
+  
 
 
 module.exports = sdk;

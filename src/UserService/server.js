@@ -1,10 +1,8 @@
 const express = require('express');
-const http = require('http');
 
 const UserRoutes = require('./user-route');
 const AppConfig = require('./config/app-config');
 const otelSdk = require('./tracing');
-
 
 class Server {
   constructor() {
@@ -19,12 +17,11 @@ class Server {
     new AppConfig(this.app).includeConfig();
   }
 
-
   startTheServer() {
     this.appConfig();
     this.includeRoutes();
 
-    const port = process.env.NODE_SERVER_POST || 4000;
+    const port = process.env.NODE_SERVER_PORT || 4000;
     const host = process.env.NODE_SERVER_HOST || '0.0.0.0';
 
     this.app.listen(port, host, () => {
@@ -32,7 +29,6 @@ class Server {
     });
   }
 }
-
 
 const gracefulShutdown = async () => {
   console.log("otelSdk shutdown...");
@@ -42,13 +38,13 @@ const gracefulShutdown = async () => {
 process.on('SIGINT', async () => {
   console.log(`SIGINT`);
   await gracefulShutdown();
-  });
+});
 
 // gracefully shut down the SDK on process exit
 process.on('SIGTERM', async () => {
   console.log(`SIGTERM`);
   await gracefulShutdown();
-  });
+});
 
 
 process.on('uncaughtException', async err => {
