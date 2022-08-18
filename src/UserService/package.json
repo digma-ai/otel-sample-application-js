@@ -1,6 +1,7 @@
 {
   "name": "userservice",
   "version": "1.0.0",
+  "private": true,
   "description": "user api",
   "main": "index.js",
   "scripts": {
