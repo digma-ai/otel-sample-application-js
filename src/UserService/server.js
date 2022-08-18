@@ -23,7 +23,7 @@ class Server {
     this.appConfig();
     this.includeRoutes();
 
-    const port = process.env.NODE_SERVER_POST || 4000;
+    const port = process.env.NODE_SERVER_PORT || 4000;
     const host = process.env.NODE_SERVER_HOST || '0.0.0.0';
 
     this.app.listen(port, host, () => {
