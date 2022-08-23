@@ -12,28 +12,31 @@ const opentelemetry = require("@opentelemetry/sdk-node");
 const { Resource } = require('@opentelemetry/resources');
 const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
 //const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http');
-const { BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
+const { ConsoleSpanExporter, BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
 const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
-//const { JaegerExporter } = require("@opentelemetry/exporter-jaeger");
+const { JaegerExporter } = require("@opentelemetry/exporter-jaeger");
 const { OTLPTraceExporter } =  require('@opentelemetry/exporter-trace-otlp-grpc');
 const { digmaAttributes } = require('@digma/otel-js-instrumentation');
 const config = require('config');
+const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express');
 
 // For troubleshooting, set the log level to DiagLogLevel.DEBUG
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 const otelEndpoint = config.get('otel.endpoint');
-// const options = {
-//   endpoint: 'http://localhost:14268/api/traces',
-// }
-//const exporter = new JaegerExporter(options);
+const options = {
+  endpoint: 'http://localhost:14268/api/traces',
+}
+const exporter = new JaegerExporter(options);
 
-const exporter = new OTLPTraceExporter({
-  // optional - url defa ult value is http://localhost:4318/v1/traces
-  url: otelEndpoint,
+// const exporter = new OTLPTraceExporter({
+//   // optional - url defa ult value is http://localhost:4318/v1/traces
+//   url: otelEndpoint,
 
-  // optional - collection of custom headers to be sent with each request, empty by default
- // headers: {}, 
-});
+//   // optional - collection of custom headers to be sent with each request, empty by default
+//  // headers: {}, 
+// });
+// const exporter = new ConsoleSpanExporter();
+
 console.log(__dirname)
 const sdk = new opentelemetry.NodeSDK({
   resource: new Resource({
@@ -41,7 +44,7 @@ const sdk = new opentelemetry.NodeSDK({
     ...digmaAttributes({ rootPath: __dirname })
   }),
   spanProcessor: new BatchSpanProcessor(exporter),
-  instrumentations: [getNodeAutoInstrumentations()]//new HttpInstrumentation()
+  instrumentations: [getNodeAutoInstrumentations()]//[getNodeAutoInstrumentations()]//new HttpInstrumentation()
 });
 
 // initialize the SDK and register with the OpenTelemetry API
