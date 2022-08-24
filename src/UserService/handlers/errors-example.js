@@ -1,9 +1,9 @@
 function doAthing() {
-    byDoingSomethingElse();
+  byDoingSomethingElse();
 }
 
 function byDoingSomethingElse() {
-    throw new Error('oops!');
+  throw new Error('oops!');
 }
 
 // add the code below

@@ -1,15 +1,16 @@
-const opentelemetry = require("@opentelemetry/api");
+const opentelemetry = require('@opentelemetry/api');
 const db = require('../../handlers/queries')
-const errorfuncs = require("../../handlers/errors-example");
-var globalTracer = require("../../handlers/utils")
-const version = "0.0.1", instrumentationName = "userRouteHandler";
+const errorfuncs = require('../../handlers/errors-example');
+const globalTracer = require('../../handlers/utils');
+
+const version = '0.0.1';
+const instrumentationName = 'userRouteHandler';
+
 console.log(__dirname)
 
-const trace = opentelemetry.trace.getTracer(
-  instrumentationName,
-  version); 
+const trace = opentelemetry.trace.getTracer(instrumentationName, version);
 
-const exceptionHandler = (response, span, exc, returnMessage = "internal server error") => {
+const exceptionHandler = (response, span, exc, returnMessage = 'internal server error') => {
   span.recordException(exc);
   span.setStatus({ code: opentelemetry.SpanStatusCode.ERROR, message: exc.message });
   response.status(500).json({ 
@@ -17,6 +18,7 @@ const exceptionHandler = (response, span, exc, returnMessage = "internal server 
     message: returnMessage,
   });
 } 
+
 class UserRouteHandler {
   async createUserRouteHandler(request, response) {
     console.log('creating user:',request.body);
@@ -28,11 +30,11 @@ class UserRouteHandler {
           span.setStatus({ code: opentelemetry.SpanStatusCode.ERROR, message: 'UserName is empty' });
           response.status(400).json({
             error: true,
-            message: "UserName is empty",
+            message: 'UserName is empty',
           });
           return; 
         };
-        var addedId = await db.createUser(id, name);
+        const addedId = await db.createUser(id, name);
         response.status(200).json({
           error: false,
           details: `user added ${addedId}`,
