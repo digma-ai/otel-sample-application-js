@@ -1,7 +1,7 @@
 const opentelemetry = require("@opentelemetry/api");
-const db = require('./queries')
-const errorfuncs = require("./errors-example");
-var globalTracer = require("./utils")
+const db = require('../../handlers/queries')
+const errorfuncs = require("../../handlers/errors-example");
+var globalTracer = require("../../handlers/utils")
 const version = "0.0.1", instrumentationName = "userRouteHandler";
 console.log(__dirname)
 
@@ -19,9 +19,9 @@ const exceptionHandler = (response, span, exc, returnMessage = "internal server 
 } 
 class UserRouteHandler {
   async createUserRouteHandler(request, response) {
-    console.log(request.body);
+    console.log('creating user:',request.body);
     const spanName = 'create user' // discover spanName from variable
-    return trace.startActiveSpan(spanName, async (span) => {
+    return await trace.startActiveSpan(spanName, async (span) => {
       try {
         const { id, name } = request.body;
         if (name === '') {
@@ -40,15 +40,21 @@ class UserRouteHandler {
         return addedId;
       } catch (exc) {
         exceptionHandler(response, span, exc);
+        console.log('user creation error');
       }
       finally {
         span.end();
       }
 
     });
+  }
 
-
-
+  async getUserRouteHandler(request, response) {
+    console.log(request.params);
+    response.status(200).json({
+      error: false,
+      details: '',
+    });
   }
 
   async getUsersRouteHandler(request, response) {

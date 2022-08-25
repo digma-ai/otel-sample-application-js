@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index"
+    "start:dev": "NODE_ENV=development node --require ./tracing.js index",
+    "start": "NODE_ENV=production node --require ./tracing.js index"
   },
   "author": "Digma",
   "license": "MIT",
@@ -16,6 +17,7 @@
     "@opentelemetry/exporter-jaeger": "^1.5.0",
     "@opentelemetry/exporter-trace-otlp-grpc": "^0.31.0",
     "@opentelemetry/exporter-trace-otlp-proto": "^0.31.0",
+    "@opentelemetry/instrumentation-express": "^0.30.0",
     "@opentelemetry/sdk-node": "^0.31.0",
     "config": "^3.3.7",
     "express": "^4.18.1",
