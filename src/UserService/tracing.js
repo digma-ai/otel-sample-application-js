@@ -26,15 +26,16 @@ const otelEndpoint = config.get('otel.endpoint');
 const options = {
   endpoint: 'http://localhost:14268/api/traces',
 };
-const exporter = new JaegerExporter(options);
+// const exporter = new JaegerExporter(options);
 
-// const exporter = new OTLPTraceExporter({
-//   // optional - url defa ult value is http://localhost:4318/v1/traces
-//   url: otelEndpoint,
+const exporter = new OTLPTraceExporter({
+  // optional - url default value is http://localhost:4318/v1/traces
+  url: otelEndpoint,
 
-//   // optional - collection of custom headers to be sent with each request, empty by default
-//  // headers: {}, 
-// });
+  // optional - collection of custom headers to be sent with each request, empty by default
+  // headers: {},
+});
+
 // const exporter = new ConsoleSpanExporter();
 
 console.log(__dirname);
