@@ -6,7 +6,7 @@
     "configurations": [
         {
             "env": {"NODE_ENV": "development"},
-            "type": "pwa-node",
+            "type": "node",
             "request": "launch",
             "name": "Launch Program",
             "skipFiles": [
