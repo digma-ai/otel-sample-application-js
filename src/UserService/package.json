@@ -12,6 +12,7 @@
   "author": "Digma",
   "license": "MIT",
   "dependencies": {
+    "@digma/instrumentation-express": "^0.0.1",
     "@digma/otel-js-instrumentation": "^0.0.1",
     "@opentelemetry/auto-instrumentations-node": "^0.31.0",
     "@opentelemetry/exporter-jaeger": "^1.5.0",

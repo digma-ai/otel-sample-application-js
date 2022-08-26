@@ -4,7 +4,7 @@ const AppConfig = require('./config/app-config');
 const otelSdk = require('./tracing');
 const opentelemetry = require("@opentelemetry/api");
 const parseExpressApp = require('express-route-parser');
-const digmaExpresIns = require('../../../digma-instrumentation-express/out');
+const digmaExpresIns = require('@digma/instrumentation-express');
 const path = require('path');
 
 class Server {

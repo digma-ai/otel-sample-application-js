@@ -1,7 +1,7 @@
 const express = require('express');
 const handlers = require('./handlers');
 const opentelemetry = require("@opentelemetry/api");
-const digmaExpresIns = require('../../../../../digma-instrumentation-express/out');
+const digmaExpresIns = require('@digma/instrumentation-express');
 
 const router = express.Router();
 
