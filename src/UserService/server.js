@@ -1,12 +1,11 @@
-const express = require('express'),
-  users = require('./routes/users/users'),
-  AppConfig = require('./config/app-config'),
-  otelSdk = require('./tracing'),
-  opentelemetry = require("@opentelemetry/api"),
-  parseExpressApp = require('express-route-parser'),
-  digmaExpresIns = require('../../../digma-instrumentation-express/out'),
-  path = require('path');
-
+const express = require('express');
+const users = require('./routes/users/users');
+const AppConfig = require('./config/app-config');
+const otelSdk = require('./tracing');
+const opentelemetry = require('@opentelemetry/api');
+const parseExpressApp = require('express-route-parser');
+const digmaExpresIns = require('@digma/instrumentation-express');
+const path = require('path');
 
 class Server {
   constructor() {
@@ -35,7 +34,6 @@ class Server {
   //     return getRoutesOfLayer(path, layer)
   //   }
   // }
-
 
   includeRoutes() {
     this.app.use('/users', users);
@@ -94,8 +92,6 @@ class Server {
 
   }
 
-  
-  
   appConfig() {
     new AppConfig(this.app).includeConfig();
   }
@@ -103,7 +99,6 @@ class Server {
   startTheServer() {
     this.appConfig();
     this.includeRoutes();
-
 
     const port = process.env.NODE_SERVER_PORT || 4000;
     const host = process.env.NODE_SERVER_HOST || '0.0.0.0';
@@ -130,15 +125,14 @@ process.on('SIGTERM', async () => {
   await gracefulShutdown();
 });
 
-
 process.on('uncaughtException', async err => {
   console.log(`uncaughtException: ${err}`);
   await gracefulShutdown();
-})
+});
 
 process.on('exit', async code => {
   console.log(`Process exited with code: ${code}`)
   await gracefulShutdown();
-})
+});
 
 module.exports = new Server();

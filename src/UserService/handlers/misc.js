@@ -1,13 +1,13 @@
-  function x()  {
-    cosole.log("");
-    let a=0;
-
-}  
-       
- const foo = () => {
+function x() {
   cosole.log("");
-  let a=0; 
- }    
+  let a = 0;
+}
+       
+const foo = () => {
+  cosole.log("");
+  let a = 0;
+}
+
 //  let foo8 = function bar() {
 //   cosole.log("");
 //  } 
