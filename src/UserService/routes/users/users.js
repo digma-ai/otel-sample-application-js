@@ -5,18 +5,6 @@ const digmaExpresIns = require('@digma/instrumentation-express');
 
 const router = express.Router();
 
-
-router.use((req, res, next) => {
-  console.log("my middleware1 - before");
-  next();
-  console.log("my middleware1 - after");
-});
-router.use((req, res, next) => {
-  console.log("my middleware2 - before");
-  next();
-  console.log("my middleware2 - after");
-});
-
 digmaExpresIns.useDigmaRouterMiddleware(router);
 
 router.post('/', handlers.createUserRouteHandler);
