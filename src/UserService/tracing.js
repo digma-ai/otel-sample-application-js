@@ -66,6 +66,25 @@ const sdk = new opentelemetry.NodeSDK({
   //   new HttpInstrumentation(),
   //   expressInstrumentation,
   // ],
+
+  // // pass config to auto instrumentations
+  // instrumentations: [
+  //   getNodeAutoInstrumentations({
+  //     '@opentelemetry/instrumentation-http': {
+  //       requestHook: function(span, info) {
+  //         diag.info('>>> http request hook:', span, info)
+  //         span.setAttribute('a-test', 'http')
+  //       },
+  //     },
+  //     '@opentelemetry/instrumentation-express': {
+  //       requestHook: function(span, info) {
+  //         diag.info('>>> express request hook:', span, info)
+  //         span.setAttribute('a-test', 'express')
+  //         span.spanContext()
+  //       },
+  //     },
+  //   }),
+  // ],
 });
 
 applyDigmaInstrumentation(sdk);
