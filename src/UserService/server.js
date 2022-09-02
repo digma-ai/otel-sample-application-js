@@ -10,30 +10,7 @@ const path = require('path');
 class Server {
   constructor() {
     this.app = express();
-    // users.use(function(req, res, next) {
-    //   console.log(req.route);
-    //   const span = opentelemetry.trace.getSpan(opentelemetry.context.active());
-    //   span.setAttribute("digma", "router");
-    //   next();
-    // })
-   //digmaExpresIns.useDigmaAppMiddleware(this.app);
-
-    // this.app.use((req, res, next) => {
-    //  // console.log(req.route);
-    //   const span = opentelemetry.trace.getSpan(opentelemetry.context.active());
-    //   span.setAttribute("digma", "app");
-    //   next();
-    //   console.log("req.route");
-    // });
   }
-  // getRoutesOfLayer(path, layer){
-  //   if(layer.method){
-  //     return [];
-  //   }
-  //   if(layer.route){
-  //     return getRoutesOfLayer(path, layer)
-  //   }
-  // }
 
   includeRoutes() {
     this.app.use('/users', users);
@@ -43,53 +20,6 @@ class Server {
         details: '',
       });
     });
-    // this.app.all('/', (req, res, next) => {
-    //   console.log('Accessing digma middleware section ...');
-    //   next(); // pass control to the next handler
-    // });
-   // const parsed = parseExpressApp.parseExpressApp(this.app);
-   //digmaExpresIns.discover(this.app)
-   //const a = digmaExpresIns.routesMap;
-   // this.app._router.stack.forEach(req.bind(null, []))
-
-    // this.app._router.stack.forEach(layer=>{
-    //   if(layer.name ==='router'){
-    //     const routeInServer = `${layer.regexp}`
-    //     .split('\\') // Seperates the string at every '\'
-    //     .slice(1, -2) // Gets rid of the first index and last two indexes (the regex)
-    //     .join(''); // Puts the string back together so that all the remains is the route
-    //     if(layer.handle.__original.stack){
-    //       for (const subLayer of layer.handle.__original.stack) {
-    //         if(subLayer.route){
-    //           const path = subLayer.route.path;
-    //           if(subLayer.route.stack){
-    //             for (const s of subLayer.route.stack) {
-    //               console.log("");
-    //             }
-    //           }
-    //         }
-            
-            
-    //         const routeInRouter = `${subLayer.regexp}`
-    //         .split('\\') // Seperates the string at every '\'
-    //         .slice(1, -1) // Gets rid of the first index and last two indexes (the regex)
-    //         .join(''); // Puts the string back together so that all the remains is the route
-    //       }
-
-
-    //     }
-        
-
-    //   }
-
-    //   //this.getRoutesOfLayer('', layer)
-    // });
-  //   for (const stack of router.stack.filter(s=>s.route)) {
-  //     //const match = stack.route.stack.find(s => s.route.path === stack.route.path && s.route.methods[stack.route.method])
-  
-  //     console.log(route);
-  // }
-
   }
 
   appConfig() {
