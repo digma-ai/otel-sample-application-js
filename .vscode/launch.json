@@ -13,7 +13,10 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/src/UserService/index.js",
-            "runtimeArgs": ["--require", "${workspaceFolder}/src/UserService/tracing.js"],
+            "runtimeArgs": [
+                "--require", "${workspaceFolder}/src/UserService/tracing.js",
+                "--preserve-symlinks",
+            ],
         },
     ]
     // "configurations": [
