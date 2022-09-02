@@ -38,6 +38,20 @@ const consoleSpanExporter = new ConsoleSpanExporter();
 
 const exporter = jaegerExporter;
 
+// const expressInstrumentation = new ExpressInstrumentation();
+// expressInstrumentation.setConfig({
+//   requestHook: function(span, info) {
+//     diag.info('*** request hook:', span, info)
+//     span.setAttribute('test-attribute', 'eureka!')
+//   },
+// })
+
+// const expressInstrumentation = new ExpressInstrumentation({
+//   requestHook: function(span, info) {
+//     diag.info('*** request hook:', span, info)
+//     span.setAttribute('test-attribute', 'eureka!')
+//   },
+// })
 
 const sdk = new opentelemetry.NodeSDK({
   resource: new Resource({
@@ -46,6 +60,12 @@ const sdk = new opentelemetry.NodeSDK({
   }),
   spanProcessor: new BatchSpanProcessor(exporter),
   instrumentations: [getNodeAutoInstrumentations()],
+
+  // // manually create http and express instrumentations
+  // instrumentations: [
+  //   new HttpInstrumentation(),
+  //   expressInstrumentation,
+  // ],
 });
 
 applyDigmaInstrumentation(sdk);
