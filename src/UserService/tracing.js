@@ -36,7 +36,6 @@ const exporter = new OTLPTraceExporter({
 
 // const exporter = new ConsoleSpanExporter();
 
-console.log(__dirname);
 
 const sdk = new opentelemetry.NodeSDK({
   resource: new Resource({
