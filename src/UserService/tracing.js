@@ -1,25 +1,22 @@
-// Require dependencies
-// const opentelemetry = require("@opentelemetry/sdk-node");
- const { getNodeAutoInstrumentations } = require("@opentelemetry/auto-instrumentations-node");
-// const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
-//const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http');
-//const { OTLPTraceExporter } =  require('@opentelemetry/exporter-trace-otlp-proto');
-
-// const { BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
 const opentelemetry = require("@opentelemetry/sdk-node");
-//const { registerInstrumentations } = require('@opentelemetry/instrumentation');
-//const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node');
+const { getNodeAutoInstrumentations } = require("@opentelemetry/auto-instrumentations-node");
 const { Resource } = require('@opentelemetry/resources');
 const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
-//const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http');
-const { ConsoleSpanExporter, BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
 const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
+// const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
+// const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http');
+// const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-proto');
+// const { OTLPTraceExporter } =  require('@opentelemetry/exporter-trace-otlp-grpc');
+// const { BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
+// const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node');
+// const { registerInstrumentations } = require('@opentelemetry/instrumentation');
+// const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http');
+// const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express');
+const { ConsoleSpanExporter, BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
 const { JaegerExporter } = require("@opentelemetry/exporter-jaeger");
-const { OTLPTraceExporter } =  require('@opentelemetry/exporter-trace-otlp-grpc');
 const { digmaAttributes } = require('@digma/otel-js-instrumentation');
 const { applyDigmaInstrumentation } = require('@digma/instrumentation-express');
 const config = require('config');
-const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express');
 
 // For troubleshooting, set the log level to DiagLogLevel.DEBUG
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
