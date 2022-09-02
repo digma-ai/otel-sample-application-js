@@ -1,6 +1,6 @@
 const express = require('express');
-const handlers = require('./handlers');
 const { useDigmaRouterMiddleware } = require('@digma/instrumentation-express');
+const handlers = require('./handlers');
 
 const router = express.Router();
 
