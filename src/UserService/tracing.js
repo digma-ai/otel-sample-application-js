@@ -17,6 +17,7 @@ const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
 const { JaegerExporter } = require("@opentelemetry/exporter-jaeger");
 const { OTLPTraceExporter } =  require('@opentelemetry/exporter-trace-otlp-grpc');
 const { digmaAttributes } = require('@digma/otel-js-instrumentation');
+const { applyDigmaInstrumentation } = require('@digma/instrumentation-express');
 const config = require('config');
 const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express');
 
@@ -46,8 +47,10 @@ const sdk = new opentelemetry.NodeSDK({
     ...digmaAttributes({ rootPath: __dirname })
   }),
   spanProcessor: new BatchSpanProcessor(exporter),
-  instrumentations: [getNodeAutoInstrumentations()]//[getNodeAutoInstrumentations()]//new HttpInstrumentation()
+  instrumentations: [getNodeAutoInstrumentations()],
 });
+
+applyDigmaInstrumentation(sdk);
 
 // initialize the SDK and register with the OpenTelemetry API
 // this enables the API to record telemetry
