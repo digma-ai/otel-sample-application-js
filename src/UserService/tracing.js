@@ -56,7 +56,14 @@ const exporter = jaegerExporter;
 const sdk = new opentelemetry.NodeSDK({
   resource: new Resource({
     [SemanticResourceAttributes.SERVICE_NAME]: "user-service", // process.env.SERVICE_NAME,
-    ...digmaAttributes({ rootPath: __dirname })
+    ...digmaAttributes({
+      rootPath: __dirname,
+      otherPackages: [
+        'config',
+        'express',
+        '@opentelemetry/sdk-node',
+      ],
+    }),
   }),
   spanProcessor: new BatchSpanProcessor(exporter),
   instrumentations: [getNodeAutoInstrumentations()],
