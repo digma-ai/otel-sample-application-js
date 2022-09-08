@@ -82,7 +82,7 @@ class UserRouteHandler {
 
   }
 
-  async error(request, response) {
+  async handledError(request, response) {
     await trace.startActiveSpan('error', async span => {
       try {
         errorfuncs.doAthing();
@@ -101,6 +101,21 @@ class UserRouteHandler {
       finally {
         span.end()
       }
+    });
+  }
+
+  async unhandledError(request, response) {
+    await trace.startActiveSpan('error', async span => {
+      errorfuncs.doAthing();
+
+      // these statements will not be reached
+      response.status(200).json({
+        error: false,
+        details: 'ok',
+      });
+      
+      // the span will not be closed by this request handler
+      span.end()
     });
   }
 }

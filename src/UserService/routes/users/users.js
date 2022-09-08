@@ -8,7 +8,8 @@ useDigmaRouterMiddleware(router);
 
 router.post('/', handlers.createUserRouteHandler);
 router.get('/', handlers.getUsersRouteHandler);
-router.get('/error', handlers.error);
+router.get('/handled-error', handlers.handledError);
+router.get('/unhandled-error', handlers.unhandledError);
 router.get('/:userId', handlers.getUserRouteHandler);
 
 
