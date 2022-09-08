@@ -12,5 +12,4 @@ router.get('/handled-error', handlers.handledError);
 router.get('/unhandled-error', handlers.unhandledError);
 router.get('/:userId', handlers.getUserRouteHandler);
 
-
 module.exports = router;

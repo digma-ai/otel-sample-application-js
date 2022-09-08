@@ -47,7 +47,6 @@ class UserRouteHandler {
       finally {
         span.end();
       }
-
     });
   }
 
@@ -62,7 +61,6 @@ class UserRouteHandler {
   }
 
   async getUsersRouteHandler(request, response) {
-
     const users = await globalTracer.startActiveSpan('get users', async span => { //discover globalTracer defined in a different file
       try {
         return await db.getUsers()
@@ -79,7 +77,6 @@ class UserRouteHandler {
       error: false,
       details: users,
     });
-
   }
 
   async handledError(request, response) {
