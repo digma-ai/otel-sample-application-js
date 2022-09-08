@@ -1,10 +1,10 @@
 const express = require('express');
-const { useDigmaRouterMiddleware } = require('@digma/instrumentation-express');
+const { digmaRouteHandler } = require('@digma/instrumentation-express');
 const handlers = require('./handlers');
 
 const router = express.Router();
 
-useDigmaRouterMiddleware(router);
+router.use(digmaRouteHandler);
 
 router.post('/', handlers.createUserRouteHandler);
 router.get('/', handlers.getUsersRouteHandler);
