@@ -14,7 +14,7 @@ GET http://localhost:4000/users
 GET http://localhost:4000/users/123
 
 ###
-GET http://localhost:4000/users/handled-error
+GET http://localhost:4000/users/error
 
 ###
-GET http://localhost:4000/users/unhandled-error
+GET http://localhost:4000/users/unhandled-exception

@@ -79,7 +79,7 @@ class UserRouteHandler {
     });
   }
 
-  async handledError(request, response) {
+  async error(request, response) {
     await trace.startActiveSpan('error', async span => {
       try {
         errorfuncs.doAthing();
@@ -101,8 +101,8 @@ class UserRouteHandler {
     });
   }
 
-  async unhandledError(request, response) {
-    await trace.startActiveSpan('error', async span => {
+  async unhandledException(request, response) {
+    await trace.startActiveSpan('unhandled exception', async span => {
       errorfuncs.doAthing();
 
       // these statements will not be reached
