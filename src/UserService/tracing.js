@@ -36,7 +36,7 @@ const otlpExporter = new OTLPTraceExporter({
 
 const consoleSpanExporter = new ConsoleSpanExporter();
 
-const exporter = jaegerExporter;
+const exporter = otlpExporter;
 
 // const expressInstrumentation = new ExpressInstrumentation();
 // expressInstrumentation.setConfig({
