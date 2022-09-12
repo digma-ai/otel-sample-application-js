@@ -94,7 +94,9 @@ const sdk = new opentelemetry.NodeSDK({
   // ],
 });
 
-applyDigmaInstrumentation(sdk);
+applyDigmaInstrumentation(sdk, {
+  handleUncaughtExceptions: true,
+})
 
 // initialize the SDK and register with the OpenTelemetry API
 // this enables the API to record telemetry
