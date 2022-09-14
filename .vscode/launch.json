@@ -18,26 +18,5 @@
                 "--require", "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService${pathSeparator}tracing.js"
             ],
         },
-        // {
-        //     "env": {"NODE_ENV": "development"},
-        //     "type": "node",
-        //     "name": "Launch via Win11",
-        //     "request": "launch",
-        //     "cwd": "${workspaceFolder}\\src\\UserService",
-        //     "runtimeExecutable": "node",
-        //     "runtimeArgs": ["--require", "${workspaceFolder}\\src\\UserService\\tracing.js", "index"]
-        //   }
     ]
-    // "configurations": [
-    //     {
-    //         "type": "pwa-node",
-    //         "request": "launch",
-    //         "name": "Launch Program",
-    //         "skipFiles": [
-    //             "<node_internals>/**"
-    //         ],
-    //         "program": "${workspaceFolder}/app.js",
-    //         "runtimeArgs": ["--require", "./tracing.js"],
-    //     },
-    // ]
 }
