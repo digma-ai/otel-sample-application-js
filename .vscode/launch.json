@@ -15,7 +15,8 @@
             "cwd": "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService",
             "program": "index",
             "runtimeArgs": [
-                "--require", "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService${pathSeparator}tracing.js"
+                "--require", "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService${pathSeparator}tracing.js",
+                "--preserve-symlinks",
             ],
         },
     ]
