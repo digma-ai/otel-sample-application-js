@@ -18,3 +18,6 @@ GET http://localhost:4000/users/error
 
 ###
 GET http://localhost:4000/users/unhandled-exception
+
+###
+GET http://localhost:4000/
