@@ -14,6 +14,7 @@ const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-grpc')
 // const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express');
 const { ConsoleSpanExporter, BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
 const { JaegerExporter } = require("@opentelemetry/exporter-jaeger");
+const { AggregateExporter } = require('@digma/opentelemetry-exporter-aggregate');
 const { digmaAttributes } = require('@digma/otel-js-instrumentation');
 const { applyDigmaInstrumentation } = require('@digma/instrumentation-express');
 const config = require('config');
@@ -36,7 +37,11 @@ const otlpExporter = new OTLPTraceExporter({
 
 const consoleSpanExporter = new ConsoleSpanExporter();
 
-const exporter = otlpExporter;
+const exporter = new AggregateExporter(
+  // jaegerExporter,
+  otlpExporter,
+  consoleSpanExporter,
+);
 
 // const expressInstrumentation = new ExpressInstrumentation();
 // expressInstrumentation.setConfig({
