@@ -12,6 +12,10 @@ app.get('/', function(req, res) {
   res.send('hello');
 });
 
+app.get('/throw', function(req, res) {
+  throw new Error('This is bad.')
+});
+
 const port = process.env.NODE_SERVER_PORT || 4000;
 const host = process.env.NODE_SERVER_HOST || '0.0.0.0';
 
