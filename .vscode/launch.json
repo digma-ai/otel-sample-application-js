@@ -8,12 +8,27 @@
             "env": {"NODE_ENV": "development"},
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch index.js",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "cwd": "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService",
             "program": "index",
+            "runtimeArgs": [
+                "--require", "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService${pathSeparator}tracing.js",
+                "--preserve-symlinks",
+            ],
+        },
+        {
+            "env": {"NODE_ENV": "development"},
+            "type": "node",
+            "request": "launch",
+            "name": "Launch app.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService",
+            "program": "app",
             "runtimeArgs": [
                 "--require", "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService${pathSeparator}tracing.js",
                 "--preserve-symlinks",

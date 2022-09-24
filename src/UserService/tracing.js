@@ -1,5 +1,5 @@
-const opentelemetry = require("@opentelemetry/sdk-node");
-const { getNodeAutoInstrumentations } = require("@opentelemetry/auto-instrumentations-node");
+const opentelemetry = require('@opentelemetry/sdk-node');
+const { getNodeAutoInstrumentations } = require('@opentelemetry/auto-instrumentations-node');
 const { Resource } = require('@opentelemetry/resources');
 const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
 const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
@@ -7,15 +7,17 @@ const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
 // const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http');
 // const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-proto');
 const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-grpc');
-// const { BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
+// const { BatchSpanProcessor } = require('@opentelemetry/sdk-trace-base');
 // const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node');
 // const { registerInstrumentations } = require('@opentelemetry/instrumentation');
 // const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http');
 // const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express');
-const { ConsoleSpanExporter, BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
-const { JaegerExporter } = require("@opentelemetry/exporter-jaeger");
+const { ConsoleSpanExporter, BatchSpanProcessor } = require('@opentelemetry/sdk-trace-base');
+const { JaegerExporter } = require('@opentelemetry/exporter-jaeger');
+const { AggregateExporter } = require('@digma/opentelemetry-exporter-aggregate');
 const { digmaAttributes } = require('@digma/otel-js-instrumentation');
 const { applyDigmaInstrumentation } = require('@digma/instrumentation-express');
+
 const config = require('config');
 
 // For troubleshooting, set the log level to DiagLogLevel.DEBUG
@@ -36,7 +38,11 @@ const otlpExporter = new OTLPTraceExporter({
 
 const consoleSpanExporter = new ConsoleSpanExporter();
 
-const exporter = otlpExporter;
+const exporter = new AggregateExporter(
+  // jaegerExporter,
+  otlpExporter,
+  consoleSpanExporter,
+);
 
 // const expressInstrumentation = new ExpressInstrumentation();
 // expressInstrumentation.setConfig({
