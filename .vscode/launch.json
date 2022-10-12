@@ -8,7 +8,7 @@
             "env": {"NODE_ENV": "development"},
             "type": "node",
             "request": "launch",
-            "name": "Launch index.js",
+            "name": "Launch user service",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -23,14 +23,14 @@
             "env": {"NODE_ENV": "development"},
             "type": "node",
             "request": "launch",
-            "name": "Launch app.js",
+            "name": "Launch calc service",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "cwd": "${workspaceFolder}${pathSeparator}src${pathSeparator}user-service",
+            "cwd": "${workspaceFolder}${pathSeparator}src${pathSeparator}calc-service",
             "program": "app",
             "runtimeArgs": [
-                "--require", "${workspaceFolder}${pathSeparator}src${pathSeparator}user-service${pathSeparator}tracing.js",
+                "--require", "${workspaceFolder}${pathSeparator}src${pathSeparator}calc-service${pathSeparator}tracing.js",
                 "--preserve-symlinks",
             ],
         },

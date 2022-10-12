@@ -1,0 +1,8 @@
+###
+GET http://localhost:4001/
+
+###
+GET http://localhost:4001/add?n=2&n=6&n=5
+
+###
+GET http://localhost:4001/throw
