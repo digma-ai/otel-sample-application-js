@@ -12,10 +12,10 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "cwd": "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService",
+            "cwd": "${workspaceFolder}${pathSeparator}src${pathSeparator}user-service",
             "program": "index",
             "runtimeArgs": [
-                "--require", "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService${pathSeparator}tracing.js",
+                "--require", "${workspaceFolder}${pathSeparator}src${pathSeparator}user-service${pathSeparator}tracing.js",
                 "--preserve-symlinks",
             ],
         },
@@ -27,10 +27,10 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "cwd": "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService",
+            "cwd": "${workspaceFolder}${pathSeparator}src${pathSeparator}user-service",
             "program": "app",
             "runtimeArgs": [
-                "--require", "${workspaceFolder}${pathSeparator}src${pathSeparator}UserService${pathSeparator}tracing.js",
+                "--require", "${workspaceFolder}${pathSeparator}src${pathSeparator}user-service${pathSeparator}tracing.js",
                 "--preserve-symlinks",
             ],
         },
