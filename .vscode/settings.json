@@ -1,3 +1,4 @@
 {
-    "digma.hideFramesOutsideWorkspace": false
+    "digma.hideFramesOutsideWorkspace": false,
+    "digma.sourceControl": "Git"
 }
