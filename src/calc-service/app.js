@@ -1,6 +1,5 @@
 const express = require('express');
 const { digmaRouteHandler } = require('@digma/instrumentation-express');
-const otelSdk = require('./tracing');
 const globalTracer = require('./tracer');
 const calc = require('./logic/calc');
 const errors = require('./logic/errors-example');
@@ -45,30 +44,4 @@ const host = process.env.NODE_SERVER_HOST || '0.0.0.0';
 
 app.listen(port, host, () => {
   console.log(`Listening on http://${host}:${port}`);
-});
-
-const gracefulShutdown = async () => {
-  console.log("otelSdk shutdown...");
-  await otelSdk.shutdown();
-};
-
-process.on('SIGINT', async () => {
-  console.log(`SIGINT`);
-  await gracefulShutdown();
-});
-
-// gracefully shut down the SDK on process exit
-process.on('SIGTERM', async () => {
-  console.log(`SIGTERM`);
-  await gracefulShutdown();
-});
-
-process.on('uncaughtException', async err => {
-  console.log(`uncaughtException: ${err}`);
-  await gracefulShutdown();
-});
-
-process.on('exit', async code => {
-  console.log(`Process exited with code: ${code}`)
-  await gracefulShutdown();
 });
