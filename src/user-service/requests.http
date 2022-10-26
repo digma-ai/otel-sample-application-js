@@ -1,4 +1,3 @@
-
 POST http://localhost:4000/users HTTP/1.1
 content-type: application/json
 
@@ -17,13 +16,10 @@ GET http://localhost:4000/users/123
 GET http://localhost:4000/users/error
 
 ###
-GET http://localhost:4000/users/unhandled-exception
+GET http://localhost:4000/users/error-unhandled
+
+###
+GET http://localhost:4000/users/error-uncaught
 
 ###
 GET http://localhost:4000/health
-
-###
-GET http://localhost:4000/
-
-###
-GET http://localhost:4000/throw

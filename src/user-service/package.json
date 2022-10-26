@@ -6,9 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "NODE_ENV=development node --require ./tracing.js index",
-    "start": "NODE_ENV=production node --require ./tracing.js index",
-    "start:app": "NODE_ENV=production node --require ./tracing.js app"
+    "develop": "NODE_ENV=development node --require ./tracing.js index",
+    "start": "NODE_ENV=production node --require ./tracing.js index"
   },
   "author": "Digma",
   "license": "MIT",

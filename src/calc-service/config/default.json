@@ -1,0 +1,5 @@
+{
+    "otel": {
+      "endpoint": "http://localhost:4317"
+    }
+}
