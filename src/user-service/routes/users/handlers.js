@@ -101,6 +101,44 @@ class UserRouteHandler {
     });
   }
 
+  /**
+   * This request handler demonstrates an "unhandled" exception.
+   * 
+   * Unhandled exceptions are basically exceptions that are not caught by the offending
+   * code that triggered the error, so they bubble up until a global exception handler
+   * can catch them and record them on the root span.
+   * 
+   * In this example, we simulate that behavior by grabbing a reference to the root span
+   * and recording the exception directly on it. We intentionally avoid creating a new
+   * span in this function to support the simulation.
+   * 
+   * In a real world app, the call to `rootSpan.recordException` would likely be made by
+   * a global exception handler and not in the request handler.
+   * 
+   * @param {*} request 
+   * @param {*} response 
+   */
+  async unhandledError(request, response) {    
+    const activeContext = opentelemetry.context.active();
+    const rootSpan = opentelemetry.trace.getSpan(activeContext);
+
+    try {
+      errorfuncs.throwRandomError();
+      response.status(200).json({
+        error: false,
+        details: 'ok',
+      });
+    }
+    catch (exc) {
+      rootSpan.recordException(exc);
+      rootSpan.setStatus({ code: opentelemetry.SpanStatusCode.ERROR, message: exc.message });
+      response.status(500).json({
+        error: true,
+        message: exc.message,
+      });
+    }
+  }
+
   async unhandledException(request, response) {
     await trace.startActiveSpan('unhandled exception', async span => {
       errorfuncs.doAthing();
