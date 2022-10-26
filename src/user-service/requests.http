@@ -19,7 +19,7 @@ GET http://localhost:4000/users/error
 GET http://localhost:4000/users/error-unhandled
 
 ###
-GET http://localhost:4000/users/unhandled-exception
+GET http://localhost:4000/users/error-uncaught
 
 ###
 GET http://localhost:4000/health
