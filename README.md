@@ -44,7 +44,7 @@ Note that these apps require an operational Digma backend. If you haven't alread
     ```json
     {
       "otel": {
-        "endpoint": "http://localhost:4317"
+        "endpoint": "http://localhost:5050"
       }
     }
     ```
