@@ -23,6 +23,17 @@ const getUsers = async () => {
   return result.rows;
 }
 
+const getUser = async (id) => {
+  const query = `
+    SELECT *
+    FROM users
+    WHERE id = $1
+    ORDER BY id ASC
+  `;
+  const result = await pool.query(query, [id]);
+  return result.rows[0];
+}
+
 // const createUser = async (id, name) => {
 //   const result = await pool.myquery('INSERT INTO users (id, name) VALUES ($1, $2) RETURNING *', [id, name])
 //   if(result.error){
@@ -46,5 +57,6 @@ const createUser = async (id, name) => {
 
 module.exports = {
   getUsers,
-  createUser
-}
+  getUser,
+  createUser,
+};

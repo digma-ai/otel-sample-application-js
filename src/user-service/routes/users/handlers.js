@@ -53,9 +53,11 @@ class UserRouteHandler {
   async getUserRouteHandler(request, response) {
     console.log(request.params);
     await globalTracer.startActiveSpan('get user', async span => { //discover globalTracer defined in a different file
+      const userId = Number(request.params.userId);
+      const user = await db.getUser(userId);
       response.status(200).json({
         error: false,
-        details: '',
+        details: user,
       });
     });
   }
