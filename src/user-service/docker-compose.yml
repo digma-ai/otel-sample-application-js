@@ -1,0 +1,40 @@
+version: '3.6'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./deploy/app.dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - DB_HOST=postgres
+    depends_on:
+      - postgres
+
+  postgres:
+    build:
+      context: ./deploy
+      dockerfile: ./postgres.dockerfile
+    expose:
+      - "5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+ 
+  collector:
+    image: otel/opentelemetry-collector-contrib:0.66.0
+    volumes:
+      - ./otel-config.yaml:/otel-config.yaml
+    command: ["--config=/otel-config.yaml"]
+    expose:
+      - "8317"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  postgres_data:
+    
+networks:
+  default:
+    name: digma-js-sample-network
