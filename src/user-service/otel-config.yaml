@@ -22,12 +22,12 @@ service:
   pipelines:
     metrics:
       receivers: [otlp]
-      exporters: [logging,otlp/collector4317]
+      exporters: [logging]
 
     traces:
       receivers: [otlp]
-      exporters: [logging,otlp/collector4317]
+      exporters: [logging,otlp/digma]
 
     logs:
       receivers: [otlp]
-      exporters: [logging,otlp/collector4317]
+      exporters: [logging]
