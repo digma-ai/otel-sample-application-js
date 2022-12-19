@@ -8,6 +8,7 @@ services:
       - "4000:4000"
     environment:
       - DB_HOST=postgres
+      - DEPLOYMENT_ENV=SAMPLE_ENV
     depends_on:
       - postgres
 
