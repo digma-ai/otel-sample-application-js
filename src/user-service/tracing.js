@@ -2,8 +2,8 @@ const opentelemetry = require('@opentelemetry/sdk-node');
 const { getNodeAutoInstrumentations } = require('@opentelemetry/auto-instrumentations-node');
 const { Resource } = require('@opentelemetry/resources');
 const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
-const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
 // const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
+const { initializeLogger } = require('../trace-library/initializer');
 // const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http');
 // const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-proto');
 const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-grpc');
@@ -20,7 +20,9 @@ const { applyDigmaInstrumentation } = require('@digma/instrumentation-express');
 const config = require('config');
 
 // For troubleshooting, set the log level to DiagLogLevel.DEBUG
-diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
+// diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
+initializeLogger();
+
 const otelEndpoint = config.get('otel.endpoint');
 
 const jaegerExporter = new JaegerExporter({

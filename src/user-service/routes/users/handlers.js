@@ -1,7 +1,8 @@
 const opentelemetry = require('@opentelemetry/api');
 const db = require('../../handlers/queries')
 const errorfuncs = require('../../handlers/errors-example');
-const globalTracer = require('../../handlers/tracer');
+// const globalTracer = require('../../handlers/tracer');
+const { userServiceTracer } = require('../../../trace-library/tracer');
 
 const version = '0.0.1';
 const instrumentationName = 'userRouteHandler';

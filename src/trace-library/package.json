@@ -1,0 +1,14 @@
+{
+  "name": "trace-library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tracer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@opentelemetry/api": "^1.3.0"
+  }
+}
