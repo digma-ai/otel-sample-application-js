@@ -11,6 +11,7 @@ router.get('/', handlers.getUsersRouteHandler);
 router.get('/error', handlers.error);
 router.get('/error-unhandled', handlers.unhandledError);
 router.get('/error-uncaught', handlers.uncaughtError);
+router.get('/wrapped-span-with-optional-name', handlers.wrappedSpanHandlerWithOptionalName);
 router.get('/:userId', handlers.getUserRouteHandler);
 
 module.exports = router;

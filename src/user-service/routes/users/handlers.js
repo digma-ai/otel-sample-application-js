@@ -1,7 +1,9 @@
 const opentelemetry = require('@opentelemetry/api');
 const db = require('../../handlers/queries')
 const errorfuncs = require('../../handlers/errors-example');
-const globalTracer = require('../../handlers/tracer');
+const { globalTracer, wrapMethodWithActiveSpan } = require('../../handlers/tracer');
+const { doSomething } = require('../../handlers/wrappedfuncs');
+// const { userServiceTracer, globalTracer, wrapMethodWithActiveSpan } = require('../../../trace-library/tracer');
 
 const version = '0.0.1';
 const instrumentationName = 'userRouteHandler';
@@ -20,6 +22,16 @@ const exceptionHandler = (response, span, exc, returnMessage = 'internal server 
 } 
 
 class UserRouteHandler {
+  async wrappedSpanHandlerWithOptionalName(request, response) {
+    const wrappedSomething = wrapMethodWithActiveSpan(doSomething);
+
+    const wrappedSomethingWithOptionalName = wrapMethodWithActiveSpan(doSomething, "myWrappedSpanName3");
+    
+    await wrappedSomething(1,2);
+
+    response.sendStatus(200);
+  }
+
   async createUserRouteHandler(request, response) {
     console.log('creating user:',request.body);
     const spanName = 'create user' // discover spanName from variable
