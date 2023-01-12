@@ -23,12 +23,20 @@ const exceptionHandler = (response, span, exc, returnMessage = 'internal server 
 
 class UserRouteHandler {
   async wrappedSpanHandlerWithOptionalName(request, response) {
+    // Case 1: without optional name
     const wrappedSomething = wrapMethodWithActiveSpan(doSomething);
-
-    const wrappedSomethingWithOptionalName = wrapMethodWithActiveSpan(doSomething, "myWrappedSpanName3");
-    
     await wrappedSomething(1,2);
 
+    // Case 2: with optional name
+    const wrappedSomethingWithOptionalName = wrapMethodWithActiveSpan(doSomething, "myWrappedSpanName2");
+    await wrappedSomethingWithOptionalName(3,4);
+
+    // TO DO:
+    // Case 3: with optional name in variable
+    // const spanName = "myWrappedSpanName3";
+    // const wrappedSomethingWithOptionalNameInVariable = wrapMethodWithActiveSpan(doSomething, spanName);
+    // await wrappedSomethingWithOptionalNameInVariable(5,6);
+    
     response.sendStatus(200);
   }
 
