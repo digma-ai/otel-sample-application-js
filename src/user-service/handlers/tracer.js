@@ -16,4 +16,4 @@ function wrapMethodWithActiveSpan(fn, customName) {
     };
 }
 
-module.exports = {globalTracer, wrappedStartSpan, wrapMethodWithActiveSpan};
+module.exports = {globalTracer, wrapMethodWithActiveSpan};
