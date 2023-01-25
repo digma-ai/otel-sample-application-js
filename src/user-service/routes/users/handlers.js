@@ -31,13 +31,23 @@ class UserRouteHandler {
     const wrappedSomethingWithOptionalName = wrapMethodWithActiveSpan(doSomething, "myWrappedSpanName2");
     await wrappedSomethingWithOptionalName(3,4);
 
+    // Case 3: with multiline arguments and whitespaces
+    const wrappedMultiline = wrapMethodWithActiveSpan  (  
+    
+      doSomething  ,
+      "multiline"
+    
+    );
+
+    await wrappedMultiline(3,4);
+
     // TO DO:
-    // Case 3: with optional name in variable
+    // Case 4: with optional name in variable
     // const spanName = "myWrappedSpanName3";
     // const wrappedSomethingWithOptionalNameInVariable = wrapMethodWithActiveSpan(doSomething, spanName);
     // await wrappedSomethingWithOptionalNameInVariable(5,6);
     
-    response.sendStatus(200);
+    response.sendStatus(100);
   }
 
   async createUserRouteHandler(request, response) {
