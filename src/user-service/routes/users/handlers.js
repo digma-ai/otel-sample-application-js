@@ -47,7 +47,7 @@ class UserRouteHandler {
     // const wrappedSomethingWithOptionalNameInVariable = wrapMethodWithActiveSpan(doSomething, spanName);
     // await wrappedSomethingWithOptionalNameInVariable(5,6);
     
-    response.sendStatus(100);
+    response.sendStatus(200);
   }
 
   async createUserRouteHandler(request, response) {
